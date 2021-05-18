@@ -60,11 +60,11 @@ Asset.prototype.renderAsset = function(h2, imageTag) {
 function renderThreeAssets(leftAsset, middleAsset, rightAsset) {
   leftAsset.renderAsset(leftAssetH2Elem, leftAssetImageTag);
   middleAsset.renderAsset(middleAssetH2Elem, middleAssetImageTag);
-  rightAsset.renderAsset(rightAssetH2Elem, rightAssetImageTag)
+  rightAsset.renderAsset(rightAssetH2Elem, rightAssetImageTag);
 }
 
 // build this after the pick new goats function?
-const renderNewAssets = function (leftIndex, rightIndex){
+const renderNewAssets = function (leftIndex, middleIndex, rightIndex){
   // we render goats based off the random goat we picked
   leftAssetImageTag.src = AssetPicture.allImages[leftIndex].url;
   leftAssetH2Elem.textContent = AssetPicture.allImages[leftIndex].name;
@@ -77,20 +77,21 @@ const renderNewAssets = function (leftIndex, rightIndex){
 // // pick random goats
 // // maybe want have those global vars that represent the current goats that we pick
 // // write a function that picks one goat, and then another, making sure the first and the second goat are not the same
-// function pickAsset() {
-//   const leftAssetIndex = Math.floor(Math.random() * Asset.allAssets.length);
-//   let rightAssetIndex = Math.floor(Math.random() * Asset.allAssets.length)
-//   while (rightAssetIndex === leftAssetIndex) {
-//     rightAssetIndex = Math.floor(Math.random() * Asset.allAssets.length)
-//   }
-//   let rightAssetIndex;
-//   while (rightAssetIndex === undefined || rightAssetIndex === leftAssetIndex) {
-//     rightAssetIndex = Math.floor(Math.random() * Asset.allAssets.length);
-//   }
-//   // lets assign the current left and current right goats based off the index numbers we got ^^^^
-//   currentLeftAsset = Asset.allAssets[leftAssetIndex];
-//   currentRightAsset = Asset.allAssets[rightAssetIndex];
-// }
+function pickAssets() {
+  const leftAssetIndex = Math.floor(Math.random() * Asset.allAssets.length);
+  let rightAssetIndex = Math.floor(Math.random() * Asset.allAssets.length)
+  while (rightAssetIndex === leftAssetIndex) {
+    rightAssetIndex = Math.floor(Math.random() * Asset.allAssets.length)
+  }
+  // let rightAssetIndex;
+  // while (rightAssetIndex === undefined || rightAssetIndex === leftAssetIndex) {
+  //   rightAssetIndex = Math.floor(Math.random() * Asset.allAssets.length);
+  // }
+  // lets assign the current left and current right goats based off the index numbers we got ^^^^
+  currentLeftAsset = Asset.allAssets[leftAssetIndex];
+  currentMiddleAsset = Asset.allAssets[middleAssetIndex];
+  currentRightAsset = Asset.allAssets[rightAssetIndex];
+}
 
 function renderResults() {
   resultsPannelUlElem.innerHTML = '';
@@ -118,7 +119,7 @@ function handleClick(e) {
   console.log(thingTheyClickedOn);
   // we need to account for votes
   if (voteCounter < 10) {
-    if (thingTheyClickedOn === leftAssetImageTag || thingTheyClickedOn === rightAssetImageTag) {
+    if (thingTheyClickedOn === leftAssetImageTag || thingTheyClickedOn === middAssetImageTag || thingTheyClickedOn === rightAssetImageTag) {
       // count the vote/ increment our vote count
       voteCounter++;
       // add to the goat they clicked ons votes
@@ -127,9 +128,10 @@ function handleClick(e) {
       } else {
         currentRightAsset.votes++;
       }
+
       // render new
-      pickGoats();
-      renderTwoGoats(currentLeftAsset, currentRightAsset);
+      pickAssets();
+      renderThreeAssets(currentLeftAsset, currentMiddleAsset, currentRightAsset);
       // alert('you got it')
     } else {
       alert('You really missed the asset!');
@@ -143,23 +145,27 @@ function handleClick(e) {
 
 // add a listener and a handler
 
-goatImageSectionTag.addEventListener('click', handleClick)
+assetImageSectionTag.addEventListener('click', handleClick)
 
 new Asset('Bag Asset', './assets/bag.jpg');
 
-new Asset('Banana Asset', './assets/bag.jpg');
-new Asset('Bathroom Asset', './assets/bag.jpg');
-new Asset('Boots Asset', './assets/bag.jpg');
-new Asset('Breakfast Asset', './assets/bag.jpg');
-new Asset('Bubblegum Asset', './assets/bag.jpg');
-new Asset('Chair Asset', './assets/bag.jpg');
-new Asset('Dog Duck Asset', './assets/bag.jpg');
-new Asset('Dragon Asset', './assets/bag.jpg');
-new Asset('Pen Asset', './assets/bag.jpg');
-new Asset('Pet-Sweep Asset', './assets/bag.jpg');
-new Asset('Scissors Asset', './assets/bag.jpg');
-new Asset('Shark Asset', './assets/bag.jpg');
-new Asset('Sweep Asset', './assets/bag.jpg');
+new Asset('Banana Asset', './assets/banana.jpg');
+new Asset('Bathroom Asset', './assets/bathroom.jpg');
+new Asset('Boots Asset', './assets/boots.jpg');
+new Asset('Breakfast Asset', './assets/breakfast.jpg');
+new Asset('Bubblegum Asset', './assets/bubblegum.jpg');
+new Asset('Chair Asset', './assets/chair.jpg');
+new Asset('Cthulhu Asset', './assets/cthulhu.jpg');
+new Asset('Dragon Asset', './assets/dog-duck.jpg');
+new Asset('Pen Asset', './assets/pen.jpg');
+new Asset('Pet-Sweep Asset', './assets/pet-sweep.jpg');
+new Asset('Scissors Asset', './assets/scissors.jpg');
+new Asset('Shark Asset', './assets/shark.jpg');
+new Asset('Sweep Asset', './assets/sweep.jpg');
+new Asset('Tauntaun Asset', './assets/tauntaun.jpg');
+new Asset('Unicorn Asset', './assets/unicorn.jpg');
+new Asset('Water-Can Asset', './assets/water-can.jpg');
+new Asset('Wine-Glass Asset', './assets/wine-glass.jpg');
 
 pickAssets();
 console.log(currentRightAsset)
