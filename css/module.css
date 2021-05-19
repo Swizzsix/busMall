@@ -1,1 +1,14 @@
-
+main * {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+  }
+  
+  aside {
+    margin: 10px;
+  }
+  
+  nav {
+    height: 250px;
+  }
+    

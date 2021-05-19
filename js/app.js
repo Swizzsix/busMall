@@ -79,17 +79,17 @@ const renderNewAssets = function (leftIndex, middleIndex, rightIndex){
 // // write a function that picks one goat, and then another, making sure the first and the second goat are not the same
 function pickAssets() {
   const leftAssetIndex = Math.floor(Math.random() * Asset.allAssets.length);
-  let rightAssetIndex = Math.floor(Math.random() * Asset.allAssets.length)
-  while (rightAssetIndex === leftAssetIndex) {
-    rightAssetIndex = Math.floor(Math.random() * Asset.allAssets.length)
-  }
-  // let rightAssetIndex;
-  // while (rightAssetIndex === undefined || rightAssetIndex === leftAssetIndex) {
-  //   rightAssetIndex = Math.floor(Math.random() * Asset.allAssets.length);
+  // let rightAssetIndex = Math.floor(Math.random() * Asset.allAssets.length)
+  // while (rightAssetIndex === leftAssetIndex) {
+  //   rightAssetIndex = Math.floor(Math.random() * Asset.allAssets.length)
   // }
-  // lets assign the current left and current right goats based off the index numbers we got ^^^^
+  let rightAssetIndex;
+  while (rightAssetIndex === undefined || rightAssetIndex === leftAssetIndex) {
+    rightAssetIndex = Math.floor(Math.random() * Asset.allAssets.length);
+  }
+  // lets assign the current left and current right assets based off the index numbers we got ^^^^
   currentLeftAsset = Asset.allAssets[leftAssetIndex];
-  currentMiddleAsset = Asset.allAssets[middleAssetIndex];
+  // currentMiddleAsset = Asset.allAssets[middleAssetIndex];
   currentRightAsset = Asset.allAssets[rightAssetIndex];
 }
 
@@ -118,8 +118,8 @@ function handleClick(e) {
   let thingTheyClickedOn = e.target;
   console.log(thingTheyClickedOn);
   // we need to account for votes
-  if (voteCounter < 10) {
-    if (thingTheyClickedOn === leftAssetImageTag || thingTheyClickedOn === middAssetImageTag || thingTheyClickedOn === rightAssetImageTag) {
+ if (assetClicks < 10) {
+    if (thingTheyClickedOn === leftAssetImageTag || thingTheyClickedOn === middleAssetImageTag || thingTheyClickedOn === rightAssetImageTag) {
       // count the vote/ increment our vote count
       voteCounter++;
       // add to the goat they clicked ons votes
